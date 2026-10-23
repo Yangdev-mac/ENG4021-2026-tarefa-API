@@ -1,1 +1,57 @@
 
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieHub - Filmes</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <h1>MovieHub</h1>
+        <p>Encontre seus filmes favoritos</p>
+
+        <form method="GET">
+            <input type="text" name="q"
+                   placeholder="Pesquisar filme..."
+                   value="{{ termo }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+
+    <main>
+        <h2>Catálogo de filmes</h2>
+
+        {% if erro %}
+            <p class="erro">{{ erro }}</p>
+        {% else %}
+            <div class="catalogo">
+
+                {% for filme in filmes %}
+                    <div class="card">
+
+                        {% if filme.Poster != "N/A" %}
+                            <img src="{{ filme.Poster }}"
+                                 alt="{{ filme.Title }}">
+                        {% else %}
+                            <div class="sem-foto">Sem imagem</div>
+                        {% endif %}
+
+                        <h3>{{ filme.Title }}</h3>
+                        <p>{{ filme.Year }}</p>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>
+
